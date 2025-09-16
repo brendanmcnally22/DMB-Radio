@@ -168,7 +168,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.012942421, g: 0.98490566, b: 0.005574857, a: 1}
     m_PressedColor: {r: 0.112727545, g: 0.9490196, b: 0.01960786, a: 1}
     m_SelectedColor: {r: 0.12721021, g: 1, b: 0.06666666, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -913,9 +913,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.044460535, g: 1, b: 0, a: 1}
     m_PressedColor: {r: 0.13735051, g: 0.9490196, b: 0.01960786, a: 1}
-    m_SelectedColor: {r: 1, g: 0.066037595, b: 0.066037595, a: 1}
+    m_SelectedColor: {r: 0.06666666, g: 1, b: 0.13230568, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.94716984, g: 0.019658221, b: 0.019658221, a: 1}
     m_SelectedColor: {r: 1, g: 0.066037595, b: 0.066037595, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
