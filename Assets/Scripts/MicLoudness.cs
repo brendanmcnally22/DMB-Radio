@@ -8,7 +8,7 @@ public class MicLoudness : MonoBehaviour
     /// <summary>
     // I'km making a script that will measure the players mic audio level in real-time.
     // It Calculates RMS (ROOTMEANSQUARE), the peak (max amplitude), and dB. 
-    // I'm also gonna make a UI slider that will show how loud you are.
+    // I lied, Im not making a UI slider yet, Thats for our next prototype
     // We want to possibly make it be able to open a door. 
     // We can definitely set a threshhold to do that
     /// </summary>
