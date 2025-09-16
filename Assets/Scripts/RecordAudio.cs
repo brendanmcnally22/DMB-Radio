@@ -16,13 +16,15 @@ public void StartRecording()
         int lengthSec = 3599;
 
         recordedClip = Microphone.Start(device, false, lengthSec, sampleRate);
-        
+
     }
 
     public void PlayRecording()
     {
-        audioSource.Play();
+
         audioSource.clip = recordedClip;
+        audioSource.Play(); // lol... 
+        // im pretty smart for playing the audio source before the clip! whoopsies!, now i fixed this. 
     }
 
     public void StopRecording()
