@@ -24,7 +24,7 @@ public void StartRecording()
 
         audioSource.clip = recordedClip;
         audioSource.Play(); // lol... 
-        // im pretty smart for playing the audio source before the clip! whoopsies!, now i fixed this. 
+       
     }
 
     public void StopRecording()
@@ -32,5 +32,11 @@ public void StartRecording()
         Microphone.End(null);
         
 }
+
+    public void EndPlayback()
+    {
+        audioSource.clip = recordedClip;
+        audioSource.Stop();
+    }
 
 }
