@@ -1,120 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class ThirdPersonController : MonoBehaviour
 {
-    [Header("Camera Settings")]
-    public Transform playerCamera;
-    public float mouseSensitivity = 100f;
-    public float verticalClamp = 85f;
-    public float lookSmooth = 0.06f;
+    public Transform cam;
+    public float sens = 2f, clamp = 80f, dist = 4f, speed = 6f, accel = 12f;
+    public Vector3 camOffset = new Vector3(0, 1.6f, 0);
 
-    private float cameraPitchRotation;
-    private float cameraYawRotation;
-    private float pitchVelocity;
-    private float yawVelocity;
-    private bool hasInitializedLook;
-
-    [Header("Movement Settings")]
-    [SerializeField] public float moveSpeed = 10.0f;
-    public float moveAcceleration = 15.0f;
-
-    private Rigidbody playerRigidbody;
+    Rigidbody rb;
+    float yaw, pitch;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        yaw = transform.eulerAngles.y;
+    }
 
-        playerRigidbody = GetComponent<Rigidbody>();
-        playerRigidbody.freezeRotation = true;
-        playerRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+    void Update()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            yaw += Input.GetAxis("Mouse X") * sens;
+            pitch -= Input.GetAxis("Mouse Y") * sens;
+            pitch = Mathf.Clamp(pitch, -clamp, clamp);
+        }
     }
 
     void LateUpdate()
     {
-        HandleCamera();
+        if (!cam) return;
+        Vector3 pivot = transform.position + camOffset;
+        Quaternion rot = Quaternion.Euler(pitch, yaw, 0);
+        cam.position = pivot + rot * new Vector3(0, 0, -dist);
+        cam.rotation = rot;
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
-    }
+        if (!cam) return;
+        float x = Input.GetAxisRaw("Horizontal"), z = Input.GetAxisRaw("Vertical");
+        Vector3 f = cam.forward; f.y = 0; f.Normalize();
+        Vector3 r = cam.right; r.y = 0; r.Normalize();
+        Vector3 dir = (r * x + f * z); if (dir.sqrMagnitude > 1) dir.Normalize();
 
-    void HandleCamera()
-    {
-        // Initialize yaw/pitch once so there’s no snap
-        if (!hasInitializedLook)
-        {
-            cameraYawRotation = transform.eulerAngles.y;
-            cameraPitchRotation = playerCamera.localEulerAngles.x;
-            if (cameraPitchRotation > 180f) cameraPitchRotation -= 360f; // normalize
-            hasInitializedLook = true;
-        }
+        Vector3 cur = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        Vector3 tgt = dir * speed;
+        Vector3 lerp = Vector3.Lerp(cur, tgt, accel * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(lerp.x, rb.velocity.y, lerp.z);
 
-        // Mouse input
-        float deltaTime = Time.unscaledDeltaTime;
-        float mouseXInput = Input.GetAxis("Mouse X") * mouseSensitivity * deltaTime;
-        float mouseYInput = Input.GetAxis("Mouse Y") * mouseSensitivity * deltaTime;
-
-        // Accumulate angles
-        cameraYawRotation += mouseXInput;
-        cameraPitchRotation -= mouseYInput;
-        cameraPitchRotation = Mathf.Clamp(cameraPitchRotation, -verticalClamp, verticalClamp);
-
-        // Smooth interpolation
-        float smoothedYaw = Mathf.SmoothDampAngle(
-            transform.eulerAngles.y,
-            cameraYawRotation,
-            ref yawVelocity,
-            lookSmooth,
-            Mathf.Infinity,
-            deltaTime
-        );
-
-        float smoothedPitch = Mathf.SmoothDampAngle(
-            playerCamera.localEulerAngles.x,
-            cameraPitchRotation,
-            ref pitchVelocity,
-            lookSmooth,
-            Mathf.Infinity,
-            deltaTime
-        );
-
-
-        // Apply
-        transform.rotation = Quaternion.Euler(0f, smoothedYaw, 0f);
-        playerCamera.localRotation = Quaternion.Euler(smoothedPitch, 0f, 0f);
-    }
-
-    void HandleMovement()
-    {
-        // Get Input
-        float inputHorizontal = Input.GetAxisRaw("Horizontal");
-        float inputVertical = Input.GetAxisRaw("Vertical");
-
-
-        // Calculate direction
-        Vector3 moveDirection = (transform.right * inputHorizontal + transform.forward * inputVertical).normalized;
-        Vector3 targetVelocity = moveDirection * moveSpeed;
-
-
-        // Get current and target velocity
-        Vector3 currentXZVelocity = new Vector3(playerRigidbody.velocity.x, 0f, playerRigidbody.velocity.z);
-        Vector3 targetXZVelocity = new Vector3(targetVelocity.x, 0f, targetVelocity.z);
-
-
-        // Interpalate between current and target velocity
-        Vector3 smoothedXZVelocity = Vector3.Lerp(
-            currentXZVelocity,
-            targetXZVelocity,
-            moveAcceleration * Time.fixedDeltaTime
-        );
-
-
-        // Apply
-        playerRigidbody.velocity = new Vector3(smoothedXZVelocity.x, playerRigidbody.velocity.y, smoothedXZVelocity.z);
-        playerRigidbody.angularVelocity = Vector3.zero;
+        if (dir.sqrMagnitude > 0.0001f)
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(dir, Vector3.up), 10f * Time.fixedDeltaTime));
     }
 }
