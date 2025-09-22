@@ -694,7 +694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1157193730}
         m_TargetAssemblyTypeName: RecordAudio, Assembly-CSharp
         m_MethodName: EndPlayback
         m_Mode: 1
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1157193730}
         m_TargetAssemblyTypeName: RecordAudio, Assembly-CSharp
         m_MethodName: StartRecording
         m_Mode: 1
@@ -1498,7 +1498,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1157193730}
         m_TargetAssemblyTypeName: RecordAudio, Assembly-CSharp
         m_MethodName: PlayRecording
         m_Mode: 1
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1157193730}
         m_TargetAssemblyTypeName: RecordAudio, Assembly-CSharp
         m_MethodName: StopRecording
         m_Mode: 1
