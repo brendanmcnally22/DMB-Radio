@@ -6,10 +6,7 @@ Our objective statement was:
 > _The goal with DMB0radio is to create an immersive gameplay experience the enhances that feel of puzzles and makes the game more memorable by utilizing the players voice to solve puzzles and make their way through the game._
 
 ## Design Rationale
-
-
-## Implementing the idea further
-Once we had our core idea for our rapid prototype we came up with some ideas that our microphone concept could be used in.
+Our groups rationale behind DMB-radio was creating a game mechganic that felt fun and immersive and allowed the player free creative freedom. We wanted our mechanic to be utilized in many different types of games from, stealth game, to puzzle games. Once we had our core game mechanic for our rapid prototype we came up with some ideas that our microphone concept could be used in.
 ### Ideas
 1. Our first and primary idea was utilizing the recordings for a puzzle game, where you could record your voice and then use that to unlock things like treasure chests and doors.
 2. Our puzzle idea was fairly broad so we decided to come up with a more specific idea. Darren suggested using the recording prototype for a military type stealth game where you could record you voice then play it to lure enemies places.
@@ -17,57 +14,19 @@ Once we had our core idea for our rapid prototype we came up with some ideas tha
 
 
 
+## References
+### Asset references
+[Microphone asset](https://www.fab.com/listings/a11bfff5-9864-47cc-9c7d-af309f845b5c)
+[Subway asset](https://www.fab.com/listings/39abdcd9-baa1-49a0-bb9b-90808d483bca)**Unused in final**
+[Radio asset](https://assetstore.unity.com/packages/3d/props/radio-230712)
+[Table asset](https://assetstore.unity.com/packages/3d/environments/training-table-136070)
+[Building asset](https://assetstore.unity.com/packages/3d/props/exterior/urban-building-130318)
 
+##Code references
+[Microphone recorder code](https://www.youtube.com/watch?v=faLbKJ_AufU)
+[Audio source](https://docs.unity3d.com/6000.2/Documentation/ScriptReference/AudioSource.html)
+Player movement came from previous assignments
 
-
-### Heading 3
-And so we can keep going.
-Also, did you notice that text with a space between lines gets combined on GitHub?
-
-# Emphasis
-_italic_
-
-**bold**
-
-**_bold and italic_**
-
-# Lists
-## Ordered List
-1. Ready
-2. Set
-3. Go!
-## Unordered List
-- Ready
-- Set
-- Go!
-
-# Contextual Text Formats
-## Blockquote (single line)
-> This is a block quote
-## Blockquote (multiple lines)
-> Rule of thumb: if you think something is clever and sophisticated
-> beware-it is probably self-indulgence.
-> 
-> \- Don Norman
-## Code
-`This is a snippet of code`
-## Code Block
-```C#
-// This is a C# code block
-while(true)
-{
-  Console.WriteLine("Hello, world!");
-}
-```
-
-# Hyperlinks
-For a simple hyperlink, just past it.
-
-https://en.wikipedia.org/wiki/Game
-
-For named hyperlinks, use this format: \[text\]\(url)
-
-[Super secret hyperlink](https://en.wikipedia.org/wiki/Game)
 
 # Media
 Link to media,  using \!\[text\]\(path/to/media\)
@@ -83,35 +42,3 @@ Useful for linking to media via URLs.
 Here's some media in this GitHub repository.
 
 ![TBD relative img](./lady-bacon.png)
-
-## Broken Link
-When media cannot be found, it'll look like this (link intentionally missing extension `.jpg`).
-
-![Image of very old game](https://upload.wikimedia.org/wikipedia/commons/0/0d/Gaming_Board_Inscribed_for_Amenhotep_III_with_Separate_Sliding_Drawer%2C_ca._1390-1353_B.C.E.%2C49.56a-b)
-
-# Dividers
-Some text.
-
----
-
-Divided!
-
-***
-
-Divided once more!
-
-___
-
-And yet again!
-
-# Colours
-Mardkown does not natively support text color. If you really need it, you must use HTML syntax. However, GitHub tends to strip out HTML.
-
-<span style="color:red;">Red text</span>.
-
-# Escape Sequence
-Use \\ if you need a character but it gets interpreted as Markdown.
-
-\# Not a heading
-
-\*not bold\*
