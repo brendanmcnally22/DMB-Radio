@@ -1,60 +1,54 @@
 using System.Collections;
 using UnityEngine;
 
-public class DoorController : MonoBehaviour
+public class DoorLerp : MonoBehaviour
 {
+    public float openAngle = 90f;   // set negative to swing the other way
+    public float duration = 0.5f;
+
     public bool IsOpen { get; private set; }
-    public Transform doorPivot;
-    public float openAngle = 90f;
-    public float rotateDuration = 0.35f;
-    public AnimationCurve ease = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     Quaternion closedRot, openRot;
-    Coroutine spin;
+    Coroutine swing;
 
     void Awake()
     {
-        if (!doorPivot) doorPivot = transform;
-        closedRot = doorPivot.localRotation;
+        closedRot = transform.localRotation;
         openRot = closedRot * Quaternion.Euler(0f, openAngle, 0f);
     }
+
+    public void Toggle() { if (IsOpen) Close(); else Open(); }
 
     public void Open()
     {
         if (IsOpen) return;
         IsOpen = true;
-        StartSpin(true);
+        StartSwing(openRot);
     }
 
     public void Close()
     {
         if (!IsOpen) return;
         IsOpen = false;
-        StartSpin(false);
+        StartSwing(closedRot);
     }
 
-    public void Toggle()
+    void StartSwing(Quaternion target)
     {
-        if (IsOpen) Close(); else Open();
+        if (swing != null) StopCoroutine(swing);
+        swing = StartCoroutine(Swing(target));
     }
 
-    void StartSpin(bool open)
+    IEnumerator Swing(Quaternion target)
     {
-        if (spin != null) StopCoroutine(spin);
-        spin = StartCoroutine(RotateDoor(open ? openRot : closedRot));
-    }
-
-    IEnumerator RotateDoor(Quaternion target)
-    {
-        Quaternion from = doorPivot.localRotation;
+        Quaternion start = transform.localRotation;
         float t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / rotateDuration;
-            doorPivot.localRotation = Quaternion.Slerp(from, target, ease.Evaluate(t));
+            t += Time.deltaTime / duration;
+            transform.localRotation = Quaternion.Lerp(start, target, t);
             yield return null;
         }
-        doorPivot.localRotation = target;
-        spin = null;
+        transform.localRotation = target;
     }
 }
