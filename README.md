@@ -16,29 +16,20 @@ Our groups rationale behind DMB-radio was creating a game mechganic that felt fu
 
 ## References
 ### Asset references
-[Microphone asset](https://www.fab.com/listings/a11bfff5-9864-47cc-9c7d-af309f845b5c)
-[Subway asset](https://www.fab.com/listings/39abdcd9-baa1-49a0-bb9b-90808d483bca)**Unused in final**
-[Radio asset](https://assetstore.unity.com/packages/3d/props/radio-230712)
-[Table asset](https://assetstore.unity.com/packages/3d/environments/training-table-136070)
-[Building asset](https://assetstore.unity.com/packages/3d/props/exterior/urban-building-130318)
+[Microphone asset](https://www.fab.com/listings/a11bfff5-9864-47cc-9c7d-af309f845b5c)          
+[Subway asset](https://www.fab.com/listings/39abdcd9-baa1-49a0-bb9b-90808d483bca)    **Unused in final**            
+[Radio asset](https://assetstore.unity.com/packages/3d/props/radio-230712)              
+[Table asset](https://assetstore.unity.com/packages/3d/environments/training-table-136070)              
+[Building asset](https://assetstore.unity.com/packages/3d/props/exterior/urban-building-130318)              
 
-##Code references
-[Microphone recorder code](https://www.youtube.com/watch?v=faLbKJ_AufU)
-[Audio source](https://docs.unity3d.com/6000.2/Documentation/ScriptReference/AudioSource.html)
-Player movement came from previous assignments
+### Code references      
+[Microphone recorder code](https://www.youtube.com/watch?v=faLbKJ_AufU)            
+[Audio source](https://docs.unity3d.com/6000.2/Documentation/ScriptReference/AudioSource.html)            
+Player movement came from previous assignments          
 
 
 # Media
-Link to media,  using \!\[text\]\(path/to/media\)
-
-We can use relative (local to repository) or absolute (full, typically for URL) paths to media files.
-
-## Absolute Path
-Useful for linking to media via URLs.
-
-![Image of very old game](https://upload.wikimedia.org/wikipedia/commons/0/0d/Gaming_Board_Inscribed_for_Amenhotep_III_with_Separate_Sliding_Drawer%2C_ca._1390-1353_B.C.E.%2C49.56a-b.jpg)
-
-## Relative Path
-Here's some media in this GitHub repository.
-
-![TBD relative img](./lady-bacon.png)
+Here is some screenshots and footage of gameplay:      
+[Screenshot 1](https://imgur.com/cDOhy95)          
+[Screenshot 2](https://imgur.com/tRgjg16)            
+[Footage](https://i.gyazo.com/7c35d5a3d2745b37759edebbaa0cc2cf.gif)
