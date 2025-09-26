@@ -12,7 +12,8 @@ Our groups rationale behind DMB-radio was creating a game mechganic that felt fu
 2. Our puzzle idea was fairly broad so we decided to come up with a more specific idea. Darren suggested using the recording prototype for a military type stealth game where you could record you voice then play it to lure enemies places.
 3. Our final concept for what we could use our prototype for was a horror game where everytime you speak a monster would also be able to hear you.
 
-
+## Video of Project
+https://youtu.be/Z-s-WWoXj2M
 
 ## References
 ### Asset references
