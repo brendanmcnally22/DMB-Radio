@@ -21,6 +21,9 @@ public class CameraSystem : MonoBehaviour
     [Tooltip("Show/hide a separate UI canvas while in Camera Mode.")]
     public Canvas cameraUICanvas;
 
+    [Tooltip("Optional: toggle player control scripts instead of whole root.")]
+    public PlayerControllerToggle playerControllerToggle;
+
     [Header("Mouse Look Settings (for remote driving)")]
     public float mouseSensitivity = 2.5f;
     public bool lockCursorInCamMode = true;
@@ -33,14 +36,17 @@ public class CameraSystem : MonoBehaviour
         // Defensive: ensure all feed cameras target a RenderTexture
         for (int i = 0; i < feeds.Count; i++)
         {
-            if (feeds[i] == null) continue;
-            if (feeds[i].GetComponent<Camera>() == null)
+            var f = feeds[i];
+            if (f == null) continue;
+
+            if (f.camera == null)
             {
                 Debug.LogWarning($"CameraFeed at {i} has no Camera assigned.");
                 continue;
             }
-            if (feeds[i].GetComponent<Camera>().targetTexture == null)
-                Debug.LogWarning($"Camera '{feeds[i].name}' has no RenderTexture. Assign one!");
+
+            if (f.camera.targetTexture == null)
+                Debug.LogWarning($"Camera '{f.camera.name}' has no RenderTexture. Assign one!");
         }
 
         SetCamMode(false);
@@ -50,9 +56,7 @@ public class CameraSystem : MonoBehaviour
     {
         // Toggle Camera Mode
         if (Input.GetKeyDown(KeyCode.Tab))
-        {
             SetCamMode(!inCamMode);
-        }
 
         if (!inCamMode) return;
 
@@ -64,14 +68,12 @@ public class CameraSystem : MonoBehaviour
         for (int k = 0; k < Mathf.Min(feeds.Count, 9); k++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + k))
-            {
                 SetIndex(k);
-            }
         }
 
         // Drive remote, if present
         var active = GetActive();
-        if (active != null && active.remote != null)
+        if (active != null && active.remote != null && active.camera != null)
         {
             // Mouse look
             float yaw = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -80,7 +82,7 @@ public class CameraSystem : MonoBehaviour
             // Movement in camera-facing space
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
-            active.remote.Drive(h, v, active.GetComponent<Camera>().transform);
+            active.remote.Drive(h, v, active.camera.transform);
         }
     }
 
@@ -91,6 +93,7 @@ public class CameraSystem : MonoBehaviour
         // UI / player visibility
         if (cameraUICanvas != null) cameraUICanvas.enabled = inCamMode;
         if (playerRootToDisable != null) playerRootToDisable.SetActive(!inCamMode);
+        if (playerControllerToggle != null) playerControllerToggle.SetEnabled(!inCamMode);
 
         // Cursor lock
         if (lockCursorInCamMode)
@@ -99,11 +102,11 @@ public class CameraSystem : MonoBehaviour
             Cursor.visible = !inCamMode;
         }
 
-        // Select first camera on enter
+        // Select camera on enter / clear on exit
         if (inCamMode)
         {
             if (feeds.Count > 0)
-                SetIndex(Mathf.Clamp(index, 0, feeds.Count - 1));
+                SetIndex(index < 0 ? 0 : Mathf.Clamp(index, 0, feeds.Count - 1));
             else
                 ClearScreen();
         }
@@ -121,6 +124,7 @@ public class CameraSystem : MonoBehaviour
 
     void Next() => SetIndex(Normalize(index + 1));
     void Prev() => SetIndex(Normalize(index - 1));
+
     int Normalize(int i)
     {
         if (feeds.Count == 0) return -1;
@@ -135,8 +139,8 @@ public class CameraSystem : MonoBehaviour
         index = Mathf.Clamp(i, 0, feeds.Count - 1);
 
         var f = feeds[index];
-        if (feedScreen != null && f.GetComponent<Camera>() != null)
-            feedScreen.texture = f.GetComponent<Camera>().targetTexture;
+        if (feedScreen != null && f != null && f.camera != null)
+            feedScreen.texture = f.camera.targetTexture;
 
         if (roomLabel != null)
             roomLabel.text = string.IsNullOrEmpty(f.name) ? $"Cam {index + 1}" : f.name;
