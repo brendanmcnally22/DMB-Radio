@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DoorLerp : MonoBehaviour
 {
-    public float openAngle = 90f;   // set negative to swing the other way
+    public float openAngle = 90f;   // set to swing the other way
     public float duration = 0.5f;
 
     public bool IsOpen { get; private set; }

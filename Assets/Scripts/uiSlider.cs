@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class uiSlider : MonoBehaviour
 {
-    public RecordAudio mic;   // drag your RecordAudio here
-    public Slider slider;     // drag your UI Slider here
+    public RecordAudio mic;   
+    public Slider slider;    
 
     void Update()
     {
