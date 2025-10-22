@@ -85,6 +85,17 @@ public class CameraSystem : MonoBehaviour
             active.remote.Drive(h, v, active.camera.transform);
         }
     }
+    // in CameraSystem.cs (add anywhere inside the class)
+    public void OpenAtIndex(int i = 0)
+    {
+        SetCamMode(true);
+        SetIndex(i);
+    }
+
+    public void CloseMonitor()
+    {
+        SetCamMode(false);
+    }
 
     void SetCamMode(bool value)
     {
