@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI; // or TMPro if you prefer TMP
 using TMPro;
 
 [RequireComponent(typeof(Collider))]
@@ -8,18 +7,19 @@ public class CamStation : MonoBehaviour
     [Header("References")]
     public CameraSystem cameraSystem;       // drag your CameraSystem object
     public Canvas promptCanvas;             // small world-space canvas with "Press F..."
-    public TMP_Text promptText;                 // or TMP_Text if using TextMeshPro
+    public TMP_Text promptText;             // TMP text for the prompt
 
     [Header("Behavior")]
-    public string message = "Press F to access cameras";
+    public string openMessage = "Press F to access cameras";
+    public string closeMessage = "Press F to exit cameras";
     public KeyCode interactKey = KeyCode.F;
-    public int defaultFeedIndex = 0;        // which cam to show first at this station
+    public int defaultFeedIndex = 0;
 
     bool playerInRange;
+    bool monitorOpen = false;
 
     void Reset()
     {
-        // Make the collider a trigger by default
         var col = GetComponent<Collider>();
         col.isTrigger = true;
     }
@@ -27,7 +27,7 @@ public class CamStation : MonoBehaviour
     void Start()
     {
         if (promptCanvas) promptCanvas.enabled = false;
-        if (promptText) promptText.text = message;
+        if (promptText) promptText.text = openMessage;
     }
 
     void OnTriggerEnter(Collider other)
@@ -41,6 +41,8 @@ public class CamStation : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         playerInRange = false;
+
+        // You can choose whether to hide prompt or keep showing it.
         if (promptCanvas) promptCanvas.enabled = false;
     }
 
@@ -50,18 +52,25 @@ public class CamStation : MonoBehaviour
 
         if (Input.GetKeyDown(interactKey))
         {
-            cameraSystem.OpenAtIndex(defaultFeedIndex);
-            if (promptCanvas) promptCanvas.enabled = false; // hide while open
+            if (!monitorOpen)
+            {
+                // Open monitor, stay open
+                cameraSystem.OpenAtIndex(defaultFeedIndex);
+                monitorOpen = true;
+
+                if (promptText) promptText.text = closeMessage;
+            }
+            else
+            {
+                // Close monitor, return control
+                cameraSystem.CloseMonitor();
+                monitorOpen = false;
+
+                if (promptText) promptText.text = openMessage;
+            }
         }
     }
 
-    // Optional: call this from a UI "Close" button inside your monitor
-    public void Close()
-    {
-        if (cameraSystem) cameraSystem.CloseMonitor();
-    }
-
-    // Draw a little gizmo so it’s easy to see in scene view
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.1f, 0.8f, 1f, 0.25f);
