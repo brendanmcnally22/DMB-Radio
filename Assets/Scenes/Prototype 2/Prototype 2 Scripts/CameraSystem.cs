@@ -11,17 +11,17 @@ public class CameraSystem : MonoBehaviour
     [Tooltip("UI RawImage that displays the active RenderTexture.")]
     public RawImage feedScreen;
 
-    [Tooltip("UI Text (optional) to show room/camera name.")]
+    [Tooltip("UI Text to show room/camera name.")]
     public Text roomLabel;
 
     [Header("Mode")]
-    [Tooltip("Optional: Your normal player root to disable while in Camera Mode.")]
+    [Tooltip("normal player root to disable while in Camera Mode.")]
     public GameObject playerRootToDisable;
 
     [Tooltip("Show/hide a separate UI canvas while in Camera Mode.")]
     public Canvas cameraUICanvas;
 
-    [Tooltip("Optional: toggle player control scripts instead of whole root.")]
+    [Tooltip("toggle player control scripts instead of whole root.")]
     public PlayerControllerToggle playerControllerToggle;
 
     [Header("Mouse Look Settings (for remote driving)")]
@@ -71,7 +71,7 @@ public class CameraSystem : MonoBehaviour
                 SetIndex(k);
         }
 
-        // Drive remote, if present
+        // Drive remote
         var active = GetActive();
         if (active != null && active.remote != null && active.camera != null)
         {
@@ -85,7 +85,7 @@ public class CameraSystem : MonoBehaviour
             active.remote.Drive(h, v, active.camera.transform);
         }
     }
-    // in CameraSystem.cs (add anywhere inside the class)
+    
     public void OpenAtIndex(int i = 0)
     {
         SetCamMode(true);

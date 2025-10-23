@@ -5,10 +5,9 @@ using TMPro;
 public class CamStation : MonoBehaviour
 {
     [Header("References")]
-    public CameraSystem cameraSystem;       // drag your CameraSystem object
-    public Canvas promptCanvas;             // small world-space canvas with "Press F..."
-    public TMP_Text promptText;             // TMP text for the prompt
-
+    public CameraSystem cameraSystem;       
+    public Canvas promptCanvas;          
+    public TMP_Text promptText;            
     [Header("Behavior")]
     public string openMessage = "Press F to access cameras";
     public string closeMessage = "Press F to exit cameras";
@@ -42,7 +41,7 @@ public class CamStation : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         playerInRange = false;
 
-        // You can choose whether to hide prompt or keep showing it.
+      
         if (promptCanvas) promptCanvas.enabled = false;
     }
 

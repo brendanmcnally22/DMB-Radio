@@ -111,6 +111,6 @@ public class RecordAudio : MonoBehaviour
         double sum = 0;
         for (int i = 0; i < data.Length; i++) sum += data[i] * data[i];
         float rms = Mathf.Sqrt((float)(sum / data.Length));
-        return Mathf.Clamp01(rms * 4f); // adjust boost as needed
+        return Mathf.Clamp01(rms * 4f); // boooooooooost
     }
 }
